@@ -1,0 +1,11 @@
+{
+  "extends": "rallycoding",
+  "esversion": 6,
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}
