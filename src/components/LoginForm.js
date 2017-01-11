@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card, CardSection, InputNoLabel, Button, Spinner } from './common';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
@@ -19,6 +20,11 @@ class LoginForm extends Component {
     this.props.loginUser({ email, password });
   }
 
+  autoLogin() {
+    this.onEmailChange('test@test.com');
+    this.onPasswordChange('foobar1');
+  }
+
   renderButton() {
     if (this.props.loading) {
       return <Spinner size='large' />;
@@ -30,9 +36,13 @@ class LoginForm extends Component {
       </Button>
     );
   }
+
   render() {
     return (
       <Card>
+        <TouchableWithoutFeedback onPress={this.autoLogin.bind(this)}>
+          <IconFontAwesome name='truck' size={60} style={styles.iconStyle} />
+        </TouchableWithoutFeedback>
         <CardSection>
           <InputNoLabel
             placeholder="email"
@@ -67,6 +77,11 @@ const styles = {
     fontSize: 20,
     alignSelf: 'center',
     color: 'red',
+  },
+  iconStyle: {
+    alignSelf: 'center',
+    paddingTop: 5,
+    paddingBottom: 5
   }
 };
 
