@@ -9,6 +9,8 @@ import ParticipantEdit from './components/ParticipantEdit';
 import EventList from './components/EventList';
 import EventCreate from './components/EventCreate';
 import EventEdit from './components/EventEdit';
+import CarList from './components/CarList';
+import CarCreate from './components/CarCreate';
 import { logout } from './actions';
 
 const RouterComponent = (props) => {
@@ -59,6 +61,18 @@ const RouterComponent = (props) => {
           key='participantEdit'
           component={ParticipantEdit}
           title='Edit Participant'
+        />
+        <Scene
+          key='cars'
+          component={CarList}
+          title='Cars'
+          rightTitle='Add'
+          onRight={() => Actions.carCreate()}
+        />
+        <Scene
+          key='carCreate'
+          component={CarCreate}
+          title='Add Car'
         />
       </Scene>
     </Router>
