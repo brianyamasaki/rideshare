@@ -6,7 +6,8 @@ import {
   PARTICIPANT_CREATE,
   PARTICIPANT_UPDATE,
   PARTICIPANTS_FETCH_SUCCESS,
-  PARTICIPANT_SAVE_SUCCESS
+  PARTICIPANT_SAVE_SUCCESS,
+  PARTICIPANT_FORM_CANCEL
  } from './types.js';
 
 export const participantList = (eventId) => {
@@ -29,6 +30,12 @@ export const participantUpdate = ({ prop, value }) => {
   return {
     type: PARTICIPANT_UPDATE,
     payload: { prop, value }
+  };
+};
+
+export const participantFormCancel = () => {
+  return {
+    type: PARTICIPANT_FORM_CANCEL
   };
 };
 

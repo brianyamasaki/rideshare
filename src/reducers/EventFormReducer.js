@@ -1,26 +1,25 @@
 import {
-  PARTICIPANT_UPDATE,
-  PARTICIPANT_CREATE,
-  PARTICIPANT_SAVE_SUCCESS,
-  PARTICIPANT_FORM_CANCEL
+  EVENT_UPDATE,
+  EVENT_CREATE,
+  EVENT_SAVE_SUCCESS,
+  EVENT_FORM_CANCEL
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  firstname: '',
-  lastname: '',
-  phone: '',
-  email: ''
+  name: '',
+  description: '',
+  date: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case PARTICIPANT_UPDATE:
+    case EVENT_UPDATE:
       return { ...state, [action.payload.prop]: action.payload.value };
-    case PARTICIPANT_CREATE:
+    case EVENT_CREATE:
       return INITIAL_STATE;
-    case PARTICIPANT_SAVE_SUCCESS:
+    case EVENT_SAVE_SUCCESS:
       return INITIAL_STATE;
-    case PARTICIPANT_FORM_CANCEL:
+    case EVENT_FORM_CANCEL:
       return INITIAL_STATE;
     default:
       return state;

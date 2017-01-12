@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection, InputNoLabel } from './common';
-import { participantUpdate } from '../actions';
+import { participantUpdate, participantFormCancel } from '../actions';
 
 class ParticipantForm extends Component { 
+  componentWillUnmount() {
+    this.props.participantFormCancel();
+  }
+
   render() {
     return (
       <View>
@@ -49,9 +53,7 @@ class ParticipantForm extends Component {
 const mapStateToProps = (state) => {
   const { firstname, lastname, phone, email } = state.participant;
 
-  console.log(state.participant);
-
   return { firstname, lastname, phone, email };
 };
 
-export default connect(mapStateToProps, { participantUpdate })(ParticipantForm);
+export default connect(mapStateToProps, { participantUpdate, participantFormCancel })(ParticipantForm);

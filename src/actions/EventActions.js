@@ -3,11 +3,14 @@ import { Actions } from 'react-native-router-flux';
 import { 
   EVENT_LIST,
   EVENT_DETAILS,
+  EVENT_UPDATE,
   EVENT_CREATE,
   EVENTS_FETCH_SUCCESS,
-  EVENT_SAVE_SUCCESS
+  EVENT_SAVE_SUCCESS,
+  EVENT_FORM_CANCEL
  } from './types.js';
 
+// Go to Event list page
 export const eventList = () => {
   Actions.events();
   return {
@@ -15,11 +18,25 @@ export const eventList = () => {
   };
 };
 
+// Go to Event Details page
 export const eventDetails = (eventId) => {
   Actions.eventDetails();
   return { 
     type: EVENT_DETAILS,
     payload: eventId
+  };
+};
+
+export const eventUpdate = ({ prop, value }) => {
+  return {
+    type: EVENT_UPDATE,
+    payload: { prop, value }
+  };
+};
+
+export const eventFormCancel = () => {
+  return {
+    type: EVENT_FORM_CANCEL
   };
 };
 
@@ -30,8 +47,8 @@ export const eventCreate = ({ name, description, date }) => {
       .push({ name, description, date })
       .then(() => {
         dispatch({ type: EVENT_CREATE });
-        Actions.eventList({ type: 'reset' });
-    });
+        Actions.events({ type: 'reset' });
+      });
   };
 };
 

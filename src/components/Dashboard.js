@@ -19,7 +19,7 @@ class Dashboard extends Component {
           </CardSection>
           <CardSection>
             <Button onPress={this.props.eventList}>
-              EventList
+              Events
             </Button>
           </CardSection>
 

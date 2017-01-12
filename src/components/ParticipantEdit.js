@@ -14,7 +14,6 @@ class ParticipantEdit extends Component {
 
   onSaveChanges() {
     const { firstname, lastname, phone, email } = this.props;
-    console.log(firstname, lastname, phone, email);
     this.props.participantSave({ 
       firstname, 
       lastname, 
@@ -41,7 +40,6 @@ class ParticipantEdit extends Component {
 
 const mapStateToProps = (state) => {
   const { firstname, lastname, phone, email, id } = state.participant;
-  console.log(firstname, lastname, phone, email, id);
 
   return { firstname, lastname, phone, email, id };
 };

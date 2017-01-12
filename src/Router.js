@@ -7,7 +7,8 @@ import ParticipantList from './components/ParticipantList';
 import ParticipantCreate from './components/ParticipantCreate';
 import ParticipantEdit from './components/ParticipantEdit';
 import EventList from './components/EventList';
-import EventDetails from './components/EventDetails';
+import EventCreate from './components/EventCreate';
+import EventEdit from './components/EventEdit';
 import { logout } from './actions';
 
 const RouterComponent = (props) => {
@@ -28,11 +29,18 @@ const RouterComponent = (props) => {
         <Scene 
           key='events' 
           component={EventList} 
-          title='Events' 
+          title='Events'
+          rightTitle='Add'
+          onRight={() => Actions.eventCreate()} 
+        />
+        <Scene
+          key='eventCreate'
+          component={EventCreate}
+          title='Add Event'
         />
         <Scene 
-          key='eventDetails' 
-          component={EventDetails} 
+          key='eventEdit' 
+          component={EventEdit} 
           title='Event Details' 
         />
         <Scene 
