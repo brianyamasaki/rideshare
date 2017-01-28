@@ -9,12 +9,12 @@ class EventListItem extends Component {
   }
 
   render() {
-    const { name } = this.props.event;
+    const { name, date } = this.props.event;
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
-            <Text>{name}</Text>
+            <Text>{name} {date}</Text>
           </CardSection>
         </View>
       </TouchableWithoutFeedback>

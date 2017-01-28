@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { 
   EVENT_LIST,
   EVENT_DETAILS,
@@ -40,14 +40,14 @@ export const eventFormCancel = () => {
   };
 };
 
-export const eventCreate = ({ name, description, date }) => {
+export const eventCreate = ({ name, description, date, cars = [], participants = [] }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events`)
-      .push({ name, description, date })
+      .push({ name, description, date, cars, participants })
       .then(() => {
         dispatch({ type: EVENT_CREATE });
-        Actions.events({ type: 'reset' });
+        Actions.events({ type: 'back' });
       });
   };
 };
@@ -65,13 +65,13 @@ export const eventsFetch = () => {
   };
 };
 
-export const eventSave = ({ name, description, date, uid }) => {
+export const eventSave = ({ name, description, date, cars = [], participants = [], uid }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events/${uid}`)
-      .set({ name, description, date })
+      .set({ name, description, date, cars, participants })
       .then(() => {
-        Actions.employeeList({ type: 'reset' });
+        Actions.events({ type: ActionConst.BACK });
         dispatch({ type: EVENT_SAVE_SUCCESS });
     });
   };
@@ -83,7 +83,7 @@ export const eventDelete = ({ uid }) => {
     firebase.database().ref(`/users/${currentUser.uid}/events/${uid}`)
       .remove()
       .then(() => {
-        Actions.employeeList({ type: 'reset' });
+        Actions.events({ type: ActionConst.BACK });
     });
   };
 };

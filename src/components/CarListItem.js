@@ -5,16 +5,16 @@ import { CardSection } from './common';
 
 class CarListItem extends Component {
   onRowPress() {
-    Actions.eventEdit({ event: this.props.car });
+    Actions.carEdit({ car: this.props.car });
   }
 
   render() {
-    const { name } = this.props.car;
+    const { name, seats } = this.props.car;
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection>
-            <Text>{name}</Text>
+            <Text>{name} ({seats} seats)</Text>
           </CardSection>
         </View>
       </TouchableWithoutFeedback>

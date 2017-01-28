@@ -6,8 +6,10 @@ import EventsReducer from './EventsReducer';
 import EventFormReducer from './EventFormReducer';
 import CarsReducer from './CarsReducer';
 import CarFormReducer from './CarFormReducer';
+import AppReducer from './AppReducer';
 
 export default combineReducers({
+  app: AppReducer,
   auth: AuthReducer,
   participant: ParticipantFormReducer,
   participants: Participants,

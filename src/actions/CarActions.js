@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { 
   CAR_LIST,
   CAR_DETAILS,
@@ -46,7 +46,7 @@ export const carCreate = ({ name, seats }) => {
       .push({ name, seats })
       .then(() => {
         dispatch({ type: CAR_CREATE });
-        Actions.cars({ type: 'reset' });
+        Actions.cars({ type: ActionConst.BACK });
       });
   };
 };
@@ -70,7 +70,7 @@ export const carSave = ({ name, seats, uid }) => {
     firebase.database().ref(`/users/${currentUser.uid}/cars/${uid}`)
       .set({ name, seats })
       .then(() => {
-        Actions.cars({ type: 'reset' });
+        Actions.cars({ type: ActionConst.BACK });
     });
   };
 };
@@ -81,7 +81,7 @@ export const carDelete = ({ uid }) => {
     firebase.database().ref(`/users/${currentUser.uid}/cars/${uid}`)
       .remove()
       .then(() => {
-        Actions.employeeList({ type: 'reset' });
+        Actions.cars({ type: ActionConst.BACK });
     });
   };
 };

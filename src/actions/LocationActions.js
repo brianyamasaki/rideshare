@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
+import { Actions, ActionConst } from 'react-native-router-flux';
 import { 
   LOCATION_LIST,
   LOCATION_DETAILS,
@@ -31,7 +31,7 @@ export const locationCreate = ({ name, description, address1, address2, city, st
       .push({ name, description, address1, address2, city, state })
       .then(() => {
         dispatch({ type: LOCATION_CREATE });
-        Actions.locationList({ type: 'reset' });
+        Actions.locationList({ type: ActionConst.BACK });
     });
   };
 };
@@ -55,7 +55,7 @@ export const locationSave = ({ name, description, address1, address2, city, stat
     firebase.database().ref(`/users/${currentUser.uid}/locations/${uid}`)
       .set({ name, description, address1, address2, city, state })
       .then(() => {
-        Actions.locationList({ type: 'reset' });
+        Actions.locationList({ type: ActionConst.BACK });
         dispatch({ type: LOCATION_SAVE_SUCCESS });
     });
   };
@@ -67,7 +67,7 @@ export const locationDelete = ({ uid }) => {
     firebase.database().ref(`/users/${currentUser.uid}/locations/${uid}`)
       .remove()
       .then(() => {
-        Actions.locationList({ type: 'reset' });
+        Actions.locationList({ type: ActionConst.BACK });
     });
   };
 };

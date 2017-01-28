@@ -9,6 +9,8 @@ const INITIAL_STATE = {
   name: '',
   description: '',
   date: '',
+  cars: [],
+  participants: []
 };
 
 export default (state = INITIAL_STATE, action) => {

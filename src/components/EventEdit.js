@@ -7,18 +7,19 @@ import { Card, CardSection, Button } from './common';
 
 class EventEdit extends Component { 
   componentWillMount() {
-    console.log(this.props.event);
     _.each(this.props.event, (value, prop) => {
       this.props.eventUpdate({ prop, value });
     });
   }
 
   onSaveChanges() {
-    const { name, description, date } = this.props;
+    const { name, description, date, cars = [], participants = [] } = this.props;
     this.props.eventSave({ 
       name,
       description,
       date,
+      cars,
+      participants,
       id: this.props.event.id 
     });
   }
@@ -39,9 +40,9 @@ class EventEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, description, date } = state.event;
+  const { name, description, date, cars = [], participants = [] } = state.event;
 
-  return { name, description, date };
+  return { name, description, date, cars, participants };
 };
 
 export default connect(mapStateToProps, { eventUpdate, eventSave })(EventEdit);

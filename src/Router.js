@@ -11,11 +11,12 @@ import EventCreate from './components/EventCreate';
 import EventEdit from './components/EventEdit';
 import CarList from './components/CarList';
 import CarCreate from './components/CarCreate';
+import CarEdit from './components/CarEdit';
 import { logout } from './actions';
 
 const RouterComponent = (props) => {
   return (
-    <Router sceneStyle={{ paddingTop: 65 }}>
+    <Router sceneStyle={{ paddingTop: 60 }}>
       <Scene key='auth'>
         <Scene key='login' component={LoginForm} title='Please Login' />
       </Scene>
@@ -73,6 +74,11 @@ const RouterComponent = (props) => {
           key='carCreate'
           component={CarCreate}
           title='Add Car'
+        />
+        <Scene
+          key='carEdit'
+          component={CarEdit}
+          title='Edit Car'
         />
       </Scene>
     </Router>
