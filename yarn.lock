@@ -3546,6 +3546,12 @@ react-native:
     xmldoc "^0.4.0"
     yargs "^6.4.0"
 
+react-native-datepicker:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/react-native-datepicker/-/react-native-datepicker-1.4.3.tgz#05d66f1b545fe5e797639b5581a10581ee807d5f"
+  dependencies:
+    moment "2.x.x"
+
 react-native-drawer:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.3.0.tgz#a0369ec80ff0b61c9f152dbdea91fe76c843113a"

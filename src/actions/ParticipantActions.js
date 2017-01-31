@@ -82,10 +82,10 @@ export const participantSave = ({ firstname, lastname, phone, email, id }) => {
   };
 };
 
-export const participantDelete = ({ uid }) => {
+export const participantDelete = ({ id }) => {
   const { currentUser } = firebase.auth();
   return () => {
-    firebase.database().ref(`/users/${currentUser.uid}/participants/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/participants/${id}`)
       .remove()
       .then(() => {
         Actions.participants({ type: ActionConst.RESET });

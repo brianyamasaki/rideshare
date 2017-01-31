@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import CarForm from './CarForm';
-import { carUpdate, carSave } from '../actions';
+import { carUpdate, carSave, carDelete } from '../actions';
 import { Card, CardSection, Button } from './common';
 
 class CarEdit extends Component { 
@@ -21,17 +22,43 @@ class CarEdit extends Component {
     });
   }
 
+  onDelete() {
+    Alert.alert(
+      'Really Delete Car?',
+      'Do you really want to delete this car permanently?',
+      [
+        {
+          text: 'Delete', 
+          onPress: () => this.props.carDelete({ id: this.props.car.id })
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('cancel pressed'),
+          style: 'cancel'
+        }
+      ]
+    );
+  }
+
   render() {
     return (
-      <Card>
-        <CarForm />
+      <ScrollView>
+        <Card>
+          <CarForm />
 
-        <CardSection>
-          <Button onPress={this.onSaveChanges.bind(this)}>
-            Save Changes
-          </Button>
-        </CardSection>
-      </Card>
+          <CardSection>
+            <Button onPress={this.onSaveChanges.bind(this)}>
+              Save Changes
+            </Button>
+          </CardSection>
+
+          <CardSection>
+            <Button onPress={this.onDelete.bind(this)}>
+              Delete Car
+            </Button>
+          </CardSection>
+        </Card>
+      </ScrollView>
     );
   }
 }
@@ -42,4 +69,4 @@ const mapStateToProps = (state) => {
   return { name, seats };
 };
 
-export default connect(mapStateToProps, { carUpdate, carSave })(CarEdit);
+export default connect(mapStateToProps, { carUpdate, carSave, carDelete })(CarEdit);

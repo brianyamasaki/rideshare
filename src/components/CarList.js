@@ -40,7 +40,7 @@ class CarList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const cars = _.map(state.cars, (val, id) => {
+  const cars = _.map(state.cars.cars, (val, id) => {
     return { ...val, id };
   });
 

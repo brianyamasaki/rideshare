@@ -14,6 +14,8 @@ export const EVENT_UPDATE = 'event_update';
 export const EVENTS_FETCH_SUCCESS = 'events_fetch_success';
 export const EVENT_SAVE_SUCCESS = 'event_save_success';
 export const EVENT_FORM_CANCEL = 'event_form_cancel';
+export const EVENT_CARS_CHANGE = 'event_cars_change';
+export const EVENT_PARTICIPANTS_CHANGE = 'event_participants_change';
 
 export const PARTICIPANT_LIST = 'participant_list';
 export const PARTICIPANT_DETAILS = 'participant_details';

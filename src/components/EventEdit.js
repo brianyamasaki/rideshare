@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import EventForm from './EventForm';
-import { eventUpdate, eventSave } from '../actions';
+import { eventUpdate, eventSave, eventDelete } from '../actions';
 import { Card, CardSection, Button } from './common';
 
 class EventEdit extends Component { 
@@ -13,36 +14,62 @@ class EventEdit extends Component {
   }
 
   onSaveChanges() {
-    const { name, description, date, cars = [], participants = [] } = this.props;
+    const { id, name, description, date, cars = [], participants = [] } = this.props;
     this.props.eventSave({ 
       name,
       description,
       date,
       cars,
       participants,
-      id: this.props.event.id 
+      id
     });
+  }
+
+  onDelete() {
+    Alert.alert(
+      'Really Delete Event?',
+      'Do you really want to delete this event permanently?',
+      [
+        {
+          text: 'Delete',
+          onPress: () => this.props.eventDelete({ id: this.props.event.id })
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('delete cancelled'),
+          style: 'cancel'
+        }
+      ]
+    );
   }
 
   render() {
     return (
-      <Card>
-        <EventForm />
+      <ScrollView>
+        <Card>
+          <EventForm />
 
-        <CardSection>
-          <Button onPress={this.onSaveChanges.bind(this)}>
-            Save Changes
-          </Button>
-        </CardSection>
-      </Card>
+          <CardSection>
+            <Button onPress={this.onSaveChanges.bind(this)}>
+              Save Changes
+            </Button>
+          </CardSection>
+
+          <CardSection>
+            <Button onPress={this.onDelete.bind(this)}>
+              Delete Event
+            </Button>
+          </CardSection>
+        </Card>
+      </ScrollView>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { name, description, date, cars = [], participants = [] } = state.event;
+  const { id, name, description, date, cars = [], participants = [] } = state.event;
 
-  return { name, description, date, cars, participants };
+  return { id, name, description, date, cars, participants };
 };
 
-export default connect(mapStateToProps, { eventUpdate, eventSave })(EventEdit);
+export default connect(mapStateToProps, { eventUpdate, eventSave, eventDelete })(EventEdit);

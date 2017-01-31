@@ -4,10 +4,10 @@ import { TextInput, View } from 'react-native';
 class InputNoLabel extends Component {
   render() {
     const { inputStyle, containerStyle } = styles;
-    const { secureTextEntry, placeholder, value, onChangeText } = this.props;
+    const { secureTextEntry, placeholder, value, onChangeText, multiline, style } = this.props;
 
     return (
-      <View style={containerStyle}>
+      <View style={[containerStyle, style]}>
         <TextInput
           secureTextEntry={secureTextEntry}
           placeholder={placeholder}
@@ -15,6 +15,7 @@ class InputNoLabel extends Component {
           value={value}
           onChangeText={onChangeText}
           style={inputStyle}
+          multiline={multiline}
         />
       </View>
     );

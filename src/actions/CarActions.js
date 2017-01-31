@@ -75,10 +75,10 @@ export const carSave = ({ name, seats, uid }) => {
   };
 };
 
-export const carDelete = ({ uid }) => {
+export const carDelete = ({ id }) => {
   const { currentUser } = firebase.auth();
   return () => {
-    firebase.database().ref(`/users/${currentUser.uid}/cars/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/cars/${id}`)
       .remove()
       .then(() => {
         Actions.cars({ type: ActionConst.BACK });

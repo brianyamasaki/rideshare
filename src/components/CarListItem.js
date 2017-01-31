@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { CardSection } from './common';
 
 class CarListItem extends Component {
   onRowPress() {
@@ -10,16 +9,34 @@ class CarListItem extends Component {
 
   render() {
     const { name, seats } = this.props.car;
+    const { itemStyle, nameStyle, viewStyle } = styles;
     return (
-      <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
-        <View>
-          <CardSection>
-            <Text>{name} ({seats} seats)</Text>
-          </CardSection>
+      <TouchableOpacity 
+        onPress={this.onRowPress.bind(this)} 
+        style={itemStyle}
+      >
+        <View style={viewStyle}>
+          <Text style={nameStyle}>{name}</Text>
+          <Text>({seats} seats)</Text>
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
     );
   }
 }
+
+const styles = {
+  itemStyle: {
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+  },
+  viewStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  nameStyle: {
+    fontSize: 18
+  }
+};
 
 export default CarListItem;

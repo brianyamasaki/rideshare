@@ -1,35 +1,37 @@
 import React, { Component } from 'react';
-import { TouchableHighlight } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
 class Checkbox extends Component {
   state={
-    checked: false
+    checked: this.props.checked || false
   };
 
   onPress() {
     const checked = !this.state.checked;
     this.setState({ checked });
-    if (this.props.onChange) {
-      this.props.onChange(checked, this.props.id);
+    if (this.props.checkAction) {
+      this.props.checkAction(this.props.id, checked);
     }
   }
 
   render() {
     return (
-      <TouchableHighlight onPress={this.onPress.bind(this)} >
+      <TouchableOpacity onPress={this.onPress.bind(this)} >
         <IconFontAwesome 
           name={this.state.checked ? 'check-square-o' : 'square-o'} 
           style={styles.iconStyle} 
         />
-      </TouchableHighlight>
+      </TouchableOpacity>
     );
   }
 }
 
 const styles = {
   iconStyle: {
-    fontSize: 25
+    padding: 4,
+    fontSize: 25,
+    width: 30
   }
 };
 

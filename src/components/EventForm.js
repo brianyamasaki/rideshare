@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { CardSection, InputNoLabel } from './common';
-import { eventUpdate, eventFormCancel, carsFetch, participantsFetch } from '../actions';
+import { 
+  eventUpdate, 
+  eventFormCancel, 
+  carsFetch, 
+  eventCarsCheckAction,
+  participantsFetch,
+  eventParticipantsCheckAction
+} from '../actions';
 import ItemChooserList from './ItemChooserList';
 
 class EventForm extends Component { 
@@ -16,6 +23,7 @@ class EventForm extends Component {
   }
   
   render() {
+    const { cardStyle, cardTitles, cardTitleContainer, itemSummaryStyle } = styles;
     return (
       <View>
         <CardSection>
@@ -35,6 +43,8 @@ class EventForm extends Component {
             onChangeText={(text) => this.props.eventUpdate(
               { prop: 'description', value: text }
               )}
+            multiline
+            style={{ height: 120 }}
           />
         </CardSection>
 
@@ -48,20 +58,72 @@ class EventForm extends Component {
           />
         </CardSection>
 
-        <CardSection>
-          <ItemChooserList items={this.props.allCars} chosen={this.props.cars} />
+        <CardSection style={cardStyle}>
+          <View style={cardTitleContainer}>
+            <Text style={cardTitles}>Cars</Text>
+            <View style={itemSummaryStyle}>
+              <Text>{this.props.cars.length} Cars</Text>
+            </View>
+            <View style={itemSummaryStyle}>
+              <Text>{this.props.carsSeats} Seats</Text>
+            </View>
+          </View>
+          <ItemChooserList 
+            items={this.props.allCars} 
+            checkAction={this.props.eventCarsCheckAction}
+            checked={this.props.cars}
+          />
+        </CardSection>
+
+        <CardSection style={cardStyle}>
+          <View style={cardTitleContainer}>
+            <Text style={cardTitles}>Participants</Text>
+            <Text style={itemSummaryStyle}>{this.props.participants.length} Participants</Text>
+          </View>
+          <ItemChooserList 
+            items={this.props.allParticipants} 
+            checkAction={this.props.eventParticipantsCheckAction}
+            checked={this.props.participants}
+          />
         </CardSection>
       </View>
     );
   }
 }
 
+const styles = {
+  cardStyle: {
+    flexDirection: 'column'
+  },
+  cardTitles: {
+    fontSize: 20
+  },
+  cardTitleContainer: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  itemSummaryStyle: {
+    paddingTop: 5
+  }
+};
+
 const mapStateToProps = (state) => {
   const { name, description, date, cars = [], participants = [] } = state.event;
-  const allCars = _.map(state.cars, (val, id) => {
+  let carsSeats = 0;
+  const allCars = _.map(state.cars.cars, (val, id) => {
     return { ...val, id };
   });
-  return { name, description, date, cars, participants, allCars };
+  cars.forEach(id => {
+    if (state.cars.cars[id]) {
+      carsSeats += state.cars.cars[id].seats;
+    }
+  });
+  const allParticipants = _.map(state.participants, (val, id) => {
+    return { ...val, id };
+  });
+  return { name, description, date, cars, participants, allCars, allParticipants, carsSeats };
 };
 
 export default connect(mapStateToProps, 
@@ -69,5 +131,7 @@ export default connect(mapStateToProps,
     eventUpdate, 
     eventFormCancel, 
     carsFetch,
-    participantsFetch 
+    eventCarsCheckAction,
+    participantsFetch,
+    eventParticipantsCheckAction
   })(EventForm);

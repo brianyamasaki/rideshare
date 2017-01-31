@@ -16,7 +16,7 @@ import { logout } from './actions';
 
 const RouterComponent = (props) => {
   return (
-    <Router sceneStyle={{ paddingTop: 60 }}>
+    <Router sceneStyle={{ paddingTop: 64 }}>
       <Scene key='auth'>
         <Scene key='login' component={LoginForm} title='Please Login' />
       </Scene>

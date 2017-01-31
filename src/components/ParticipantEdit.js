@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import ParticipantForm from './ParticipantForm.js';
-import { participantUpdate, participantSave } from '../actions';
+import { participantUpdate, participantSave, participantDelete } from '../actions';
 import { Card, CardSection, Button } from './common';
 
 class ParticipantEdit extends Component {
@@ -23,17 +24,43 @@ class ParticipantEdit extends Component {
     });
   }
 
+  onDelete() {
+    Alert.alert(
+      'Really Delete Participant?',
+      'Do you really want to delete this car permanently?',
+      [
+        {
+          text: 'Delete',
+          onPress: () => this.props.participantDelete({ id: this.props.participant.id })
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('delete cancelled'),
+          style: 'cancel'
+        }
+      ]
+    );
+  }
+
   render() {
     return (
-      <Card>
-        <ParticipantForm />
+      <ScrollView>
+        <Card>
+          <ParticipantForm />
 
-        <CardSection>
-          <Button onPress={this.onSaveChanges.bind(this)}>
-            Save Changes
-          </Button>
-        </CardSection>
-      </Card>
+          <CardSection>
+            <Button onPress={this.onSaveChanges.bind(this)}>
+              Save Changes
+            </Button>
+          </CardSection>
+
+          <CardSection>
+            <Button onPress={this.onDelete.bind(this)}>
+              Delete Participant
+            </Button>
+          </CardSection>
+        </Card>
+      </ScrollView>
     );
   }
 }
@@ -44,4 +71,6 @@ const mapStateToProps = (state) => {
   return { firstname, lastname, phone, email, id };
 };
 
-export default connect(mapStateToProps, { participantUpdate, participantSave })(ParticipantEdit);
+export default connect(mapStateToProps, 
+{ participantUpdate, participantSave, participantDelete }
+)(ParticipantEdit);

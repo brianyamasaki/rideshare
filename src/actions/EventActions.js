@@ -7,7 +7,9 @@ import {
   EVENT_CREATE,
   EVENTS_FETCH_SUCCESS,
   EVENT_SAVE_SUCCESS,
-  EVENT_FORM_CANCEL
+  EVENT_FORM_CANCEL,
+  EVENT_CARS_CHANGE,
+  EVENT_PARTICIPANTS_CHANGE
  } from './types.js';
 
 // Go to Event list page
@@ -65,10 +67,10 @@ export const eventsFetch = () => {
   };
 };
 
-export const eventSave = ({ name, description, date, cars = [], participants = [], uid }) => {
+export const eventSave = ({ name, description, date, cars = [], participants = [], id }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/events/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/events/${id}`)
       .set({ name, description, date, cars, participants })
       .then(() => {
         Actions.events({ type: ActionConst.BACK });
@@ -77,13 +79,33 @@ export const eventSave = ({ name, description, date, cars = [], participants = [
   };
 };
 
-export const eventDelete = ({ uid }) => {
+export const eventDelete = ({ id }) => {
   const { currentUser } = firebase.auth();
   return () => {
-    firebase.database().ref(`/users/${currentUser.uid}/events/${uid}`)
+    firebase.database().ref(`/users/${currentUser.uid}/events/${id}`)
       .remove()
       .then(() => {
         Actions.events({ type: ActionConst.BACK });
     });
+  };
+};
+
+export const eventCarsCheckAction = (id, checked) => {
+  return {
+    type: EVENT_CARS_CHANGE,
+    payload: {
+      id,
+      checked
+    }
+  };
+};
+
+export const eventParticipantsCheckAction = (id, checked) => {
+  return {
+    type: EVENT_PARTICIPANTS_CHANGE,
+    payload: {
+      id,
+      checked
+    }
   };
 };

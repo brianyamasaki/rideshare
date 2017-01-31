@@ -3,12 +3,6 @@ import { ListView } from 'react-native';
 import ItemChooser from './ItemChooser';
 
 class ItemChooserList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chosen: props.chosen || []
-    };
-  }
   
   componentWillMount() {
     this.createDataSource(this.props.items);
@@ -16,19 +10,6 @@ class ItemChooserList extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps.items);
-  }
-
-  onChange(checked, id) {
-    const i = this.state.chosen.indexOf(id);
-    if (checked && i === -1) {
-      this.setState({
-        chosen: this.state.chosen.concat(id)
-      });
-    } else if (!checked && i !== -1) {
-      this.setState({
-        chosen: this.state.chosen.slice(i, i + 1)
-      });
-    }
   }
 
   createDataSource(items) {
@@ -42,9 +23,9 @@ class ItemChooserList extends Component {
   renderRow(item) {
     return (
       <ItemChooser 
-        checked={this.state.chosen.indexOf(item.id) !== -1} 
+        checked={this.props.checked.indexOf(item.id) !== -1} 
         item={item} 
-        onChange={this.onChange.bind(this)} 
+        checkAction={this.props.checkAction} 
       />
     );
   }
@@ -63,7 +44,10 @@ class ItemChooserList extends Component {
 
 const styles = {
   listViewStyle: {
-    maxHeight: 100
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    maxHeight: 120
   }
 };
 export default ItemChooserList;
