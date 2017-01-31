@@ -7,7 +7,6 @@ import EventForm from './EventForm';
 class EventDetails extends Component {
   onButtonPress() {
     const { name, description, date, cars, participants } = this.props;
-    console.log(name, description, date, cars, participants);
     this.props.eventCreate({ name, description, date, cars, participants });
   }
 

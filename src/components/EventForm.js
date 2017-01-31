@@ -24,7 +24,15 @@ class EventForm extends Component {
   }
   
   render() {
-    const { cardStyle, cardTitles, cardTitleContainer, itemSummaryStyle } = styles;
+    const { 
+      cardStyle, 
+      cardTitles, 
+      cardTitleContainer, 
+      itemSummaryStyle, 
+      dateTimeStyle,
+      dateTimeCustomStyles
+    } = styles;
+
     return (
       <View>
         <CardSection>
@@ -50,12 +58,20 @@ class EventForm extends Component {
         </CardSection>
 
         <CardSection>
-          <InputNoLabel
-            placeholder='Date'
-            value={this.props.date}
-            onChangeText={(text) => this.props.eventUpdate(
-              { prop: 'date', value: text }
+          <DatePicker
+            format="YYYY-MM-DD, h:mm a"
+            date={this.props.date}
+            mode="datetime"
+            placeholder="Select Date and Time"
+            minDate="2017-01-01"
+            maxDate="2020-01-01"
+            confirmBtnText="Set Date and Time"
+            cancelBtnText="Cancel"
+            onDateChange={datetime => this.props.eventUpdate(
+              { prop: 'date', value: datetime }
               )}
+            style={dateTimeStyle}
+            customStyles={dateTimeCustomStyles}
           />
         </CardSection>
 
@@ -107,6 +123,14 @@ const styles = {
   },
   itemSummaryStyle: {
     paddingTop: 5
+  },
+  dateTimeStyle: {
+    flex: 1
+  },
+  dateTimeCustomStyles: {
+    dateText: {
+      fontSize: 18
+    }
   }
 };
 
