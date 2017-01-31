@@ -46,7 +46,7 @@ export const participantCreate = ({ firstname, lastname, phone, email }) => {
       .push({ firstname, lastname, phone, email })
       .then(() => {
         dispatch({ type: PARTICIPANT_CREATE });
-        Actions.participants({ type: ActionConst.RESET });
+        Actions.participants({ type: ActionConst.BACK });
       })
       .catch((result) => {
         console.error(result);
@@ -73,7 +73,7 @@ export const participantSave = ({ firstname, lastname, phone, email, id }) => {
     firebase.database().ref(`/users/${currentUser.uid}/participants/${id}`)
       .set({ firstname, lastname, phone, email })
       .then(() => {
-        Actions.participants({ type: ActionConst.RESET });
+        Actions.participants({ type: ActionConst.BACK });
         dispatch({ type: PARTICIPANT_SAVE_SUCCESS });
       })
       .catch((error) => {
@@ -88,7 +88,7 @@ export const participantDelete = ({ id }) => {
     firebase.database().ref(`/users/${currentUser.uid}/participants/${id}`)
       .remove()
       .then(() => {
-        Actions.participants({ type: ActionConst.RESET });
+        Actions.participants({ type: ActionConst.BACK });
       })
       .catch(error => {
         console.error(error);

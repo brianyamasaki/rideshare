@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import DatePicker from 'react-native-datepicker';
 import { CardSection, InputNoLabel } from './common';
 import { 
   eventUpdate, 
@@ -110,7 +111,8 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { name, description, date, cars = [], participants = [] } = state.event;
+  const { name, description, date } = state.event;
+  let { cars = [], participants = [] } = state.event;
   let carsSeats = 0;
   const allCars = _.map(state.cars.cars, (val, id) => {
     return { ...val, id };
@@ -120,9 +122,13 @@ const mapStateToProps = (state) => {
       carsSeats += state.cars.cars[id].seats;
     }
   });
+  // filter out cars that are no longer in the global allCars list
+  cars = cars.filter(id => state.cars.cars[id] !== undefined);
   const allParticipants = _.map(state.participants, (val, id) => {
     return { ...val, id };
   });
+  // filter out participants that are no longer in the global allParticipants list
+  participants = participants.filter(id => state.participants[id] !== undefined);
   return { name, description, date, cars, participants, allCars, allParticipants, carsSeats };
 };
 
