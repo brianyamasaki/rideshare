@@ -7,10 +7,12 @@ import EventFormReducer from './EventFormReducer';
 import CarsReducer from './CarsReducer';
 import CarFormReducer from './CarFormReducer';
 import AppReducer from './AppReducer';
+import CreateAccountReducer from './CreateAccountReducer';
 
 export default combineReducers({
   app: AppReducer,
   auth: AuthReducer,
+  createAccount: CreateAccountReducer,
   participant: ParticipantFormReducer,
   participants: Participants,
   events: EventsReducer,

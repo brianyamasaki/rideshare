@@ -58,6 +58,7 @@ export const eventsFetch = () => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`users/${currentUser.uid}/events`)
+      .orderByChild('date')
       .on('value', snapshot => {
         dispatch({ 
           type: EVENTS_FETCH_SUCCESS, 

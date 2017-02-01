@@ -12,6 +12,7 @@ import EventEdit from './components/EventEdit';
 import CarList from './components/CarList';
 import CarCreate from './components/CarCreate';
 import CarEdit from './components/CarEdit';
+import CreateAccount from './components/CreateAccount';
 import { logout } from './actions';
 
 const RouterComponent = (props) => {
@@ -23,6 +24,11 @@ const RouterComponent = (props) => {
           component={LoginForm} 
           title='Please Login' 
           initial
+        />
+        <Scene
+          key='createAccount'
+          component={CreateAccount}
+          title='Create Account'
         />
       </Scene>
       <Scene key='main'>

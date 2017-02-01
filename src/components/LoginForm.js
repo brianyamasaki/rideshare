@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Card, CardSection, InputNoLabel, Button, Spinner } from './common';
+import { Actions } from 'react-native-router-flux';
+import { 
+  Card, 
+  CardSection, 
+  InputNoLabel, 
+  Button, 
+  Spinner, 
+  AnchorText, 
+  ErrorMessage 
+} from './common';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
 
 class LoginForm extends Component {
@@ -60,12 +69,18 @@ class LoginForm extends Component {
           />
         </CardSection>
 
-        <Text style={styles.errorTextStyle}>
+        <ErrorMessage>
           {this.props.error}
-        </Text>
+        </ErrorMessage>
 
         <CardSection>
           {this.renderButton()}
+        </CardSection>
+
+        <CardSection>
+          <AnchorText onPress={() => Actions.createAccount()}>
+            Create an account
+          </AnchorText>
         </CardSection>
       </Card>
     );
@@ -73,11 +88,6 @@ class LoginForm extends Component {
 }
 
 const styles = {
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red',
-  },
   iconStyle: {
     alignSelf: 'center',
     paddingTop: 5,
@@ -86,11 +96,11 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { email, password, error, loading } = state.auth;
+  const { email, password, errorMsg, loading } = state.auth;
   return {
     email,
     password,
-    error,
+    errorMsg,
     loading
   };
 };

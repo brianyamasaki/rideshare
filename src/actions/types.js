@@ -7,6 +7,14 @@ export const LOGIN_USER_FAIL = 'login_user_fail';
 export const LOGIN_USER = 'login_user';
 export const LOGOUT = 'logout';
 
+export const CREATE_ACCOUNT_EMAIL_CHANGED = 'create_account_email_changed';
+export const CREATE_ACCOUNT_PASSWORD_CHANGED = 'create_account_password_changed';
+export const CREATE_ACCOUNT_CONFIRM_PASSWORD_CHANGED = 'create_account_confirm_password_changed';
+export const CREATE_ACCOUNT_SUBMIT = 'create_account_submit';
+export const CREATE_ACCOUNT_SUCCESS = 'create_account_success';
+export const CREATE_ACCOUNT_FAIL = 'create_account_fail';
+export const CREATE_ACCOUNT_CANCEL = 'create_account_cancel';
+
 export const EVENT_LIST = 'event_list';
 export const EVENT_DETAILS = 'event_details';
 export const EVENT_CREATE = 'event_create';

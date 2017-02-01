@@ -7,3 +7,5 @@ export * from './InputNoLabel';
 export * from './Spinner';
 export * from './Confirm';
 export * from './Checkbox';
+export * from './AnchorText';
+export * from './ErrorMessage';
