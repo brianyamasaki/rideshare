@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardSection, InputNoLabel, Button, Spinner, ErrorMessage } from './common';
 import { 
   createAccountEmailChange,
   createAccountPasswordChange,
   createAccountConfirmPasswordChange,
-  createAccountSubmit
+  createAccountSubmit,
+  createAccountCancel
 } from '../actions';
 
 class CreateAccount extends Component {
+  componentWillUnmount() {
+    this.props.createAccountCancel();
+  }
+
   onEmailChange(email) {
     this.props.createAccountEmailChange(email);
   }
@@ -23,11 +27,12 @@ class CreateAccount extends Component {
   }
 
   renderButton() {
-    if (this.props.loading) {
+    const { loading, email, password } = this.props;
+    if (loading) {
       return <Spinner size='large' />;
     }
     return (
-      <Button onPress={() => this.props.createAccountSubmit()}>
+      <Button onPress={() => this.props.createAccountSubmit(email, password)}>
         Create Account
       </Button>
     );
@@ -86,6 +91,7 @@ export default connect(mapStateToProps,
   createAccountEmailChange,
   createAccountPasswordChange,
   createAccountConfirmPasswordChange,
-  createAccountSubmit
+  createAccountSubmit,
+  createAccountCancel
 }
 )(CreateAccount);

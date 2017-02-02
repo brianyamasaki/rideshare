@@ -35,7 +35,7 @@ const RouterComponent = (props) => {
         <Scene 
           key='dashboard' 
           component={Dashboard} 
-          title='Event Dashboard' 
+          title='Dashboard' 
           rightTitle='Logout'
           onRight={props.logout.bind(this)}
           initial

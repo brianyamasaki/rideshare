@@ -14,7 +14,8 @@ const INITIAL_STATE = {
   password: '',
   confirmPassword: '',
   errorMsg: '',
-  loading: false
+  loading: false,
+  user: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -47,7 +48,8 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         errorMsg: '',
-        loading: false
+        loading: false,
+        user: action.payload
       };
     case CREATE_ACCOUNT_FAIL:
       return {

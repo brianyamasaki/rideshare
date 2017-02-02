@@ -70,7 +70,7 @@ class LoginForm extends Component {
         </CardSection>
 
         <ErrorMessage>
-          {this.props.error}
+          {this.props.errorMsg}
         </ErrorMessage>
 
         <CardSection>

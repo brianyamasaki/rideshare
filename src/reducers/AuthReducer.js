@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER_FAIL:
       return {
          ...state, 
-         errorMsg: 'Authentication Failed', 
+         errorMsg: action.payload, 
          password: '',
          loading: false
         };
