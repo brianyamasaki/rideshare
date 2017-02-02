@@ -4,6 +4,7 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { participantsFetch } from '../actions/ParticipantActions';
 import ParticipantListItem from './ParticipantListItem';
+import { FullScreen } from './common';
 
 class ParticipantList extends Component {
   componentWillMount() {
@@ -28,6 +29,17 @@ class ParticipantList extends Component {
   }
 
   render() {
+    const { participants } = this.props;
+
+    if (participants && participants.length === 0) {
+      return (
+        <FullScreen 
+          title='No Participants Found' 
+          subTitle='Use the Add button above to add participants' 
+        />
+      );
+    }
+
     return (
       <ListView 
         enableEmptySections

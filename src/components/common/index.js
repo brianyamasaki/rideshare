@@ -9,3 +9,4 @@ export * from './Confirm';
 export * from './Checkbox';
 export * from './AnchorText';
 export * from './ErrorMessage';
+export * from './FullScreen';

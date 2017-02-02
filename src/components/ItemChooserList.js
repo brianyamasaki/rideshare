@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import ItemChooser from './ItemChooser';
+import { FullScreen } from './common';
 
 class ItemChooserList extends Component {
   
@@ -31,6 +32,17 @@ class ItemChooserList extends Component {
   }
 
   render() {
+    const { items } = this.props;
+
+    if (items && items.length === 0) {
+      return (
+        <FullScreen 
+          title='No items Found' 
+          style={styles.fullScreenStyle}
+        />
+      );
+    }
+
     return (
       <ListView 
       enableEmptySections
@@ -47,7 +59,13 @@ const styles = {
     borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 5,
+    minHeight: 80,
     maxHeight: 120
+  },
+  fullScreenStyle: {
+    flex: 0,
+    borderWidth: 1,
+    height: 80
   }
 };
 export default ItemChooserList;

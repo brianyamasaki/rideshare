@@ -4,6 +4,7 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { carsFetch } from '../actions/CarActions';
 import CarListItem from './CarListItem';
+import { FullScreen } from './common';
 
 class CarList extends Component {
   componentWillMount() {
@@ -28,6 +29,14 @@ class CarList extends Component {
   }
 
   render() {
+    const { cars } = this.props;
+
+    if (cars && cars.length === 0) {
+      return (
+        <FullScreen title='No Cars Found' subTitle='Use the Add button above to add cars' />
+      );
+    }
+
     return (
       <ListView 
       enableEmptySections

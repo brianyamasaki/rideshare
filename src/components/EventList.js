@@ -4,6 +4,7 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { eventsFetch } from '../actions/EventActions';
 import EventListItem from './EventListItem';
+import { FullScreen } from './common';
 
 class EventList extends Component {
   componentWillMount() {
@@ -28,6 +29,13 @@ class EventList extends Component {
   }
 
   render() {
+    const { events } = this.props;
+
+    if (events && events.length === 0) {
+      return (
+        <FullScreen title='No Events Found' subTitle='Use the Add button above to add an Event' />
+      );
+    }
     return (
       <ListView 
       enableEmptySections
@@ -36,7 +44,6 @@ class EventList extends Component {
       />
     );
   }
-
 }
 
 const mapStateToProps = (state) => {
