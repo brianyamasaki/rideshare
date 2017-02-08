@@ -10,7 +10,8 @@ import {
   carsFetch, 
   eventCarsCheckAction,
   participantsFetch,
-  eventParticipantsCheckAction
+  eventParticipantsCheckAction,
+  eventGeocode
 } from '../actions';
 import ItemChooserList from './ItemChooserList';
 
@@ -19,10 +20,18 @@ class EventForm extends Component {
     this.props.carsFetch();
     this.props.participantsFetch();
   }
+
+  componentWillReceiveProps(nextProps) {
+    // const { address1, address2, city, state } = nextProps;
+    // if (nextProps.address1 && nextProps.city && nextProps.state) {
+    //   this.props.eventGeocode(address1, address2, city, state);
+    // }
+  }
+  
   componentWillUnmount() {
     this.props.eventFormCancel();
   }
-  
+
   render() {
     const { 
       cardStyle, 
@@ -54,6 +63,46 @@ class EventForm extends Component {
               )}
             multiline
             style={{ height: 120 }}
+          />
+        </CardSection>
+
+        <CardSection>
+          <InputNoLabel
+            placeholder='Address1'
+            value={this.props.address1}
+            onChangeText={text => this.props.eventUpdate(
+              { prop: 'address1', value: text }
+            )}
+          />
+        </CardSection>
+
+        <CardSection>
+          <InputNoLabel
+            placeholder='Address2'
+            value={this.props.address2}
+            onChangeText={text => this.props.eventUpdate(
+              { prop: 'address2', value: text }
+            )}
+          />
+        </CardSection>
+
+        <CardSection>
+          <InputNoLabel
+            placeholder='City'
+            value={this.props.city}
+            onChangeText={text => this.props.eventUpdate(
+              { prop: 'city', value: text }
+            )}
+          />
+        </CardSection>
+
+        <CardSection>
+          <InputNoLabel
+            placeholder='State'
+            value={this.props.state}
+            onChangeText={text => this.props.eventUpdate(
+              { prop: 'state', value: text }
+            )}
           />
         </CardSection>
 
@@ -135,12 +184,16 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { name, description, date } = state.event;
-  let { cars = [], participants = [] } = state.event;
+  let {
+    cars, 
+    participants 
+  } = state.event;
+
   let carsSeats = 0;
   const allCars = _.map(state.cars.cars, (val, id) => {
     return { ...val, id };
   });
+  // count seats in selected cars
   cars.forEach(id => {
     if (state.cars.cars[id]) {
       carsSeats += state.cars.cars[id].seats;
@@ -153,7 +206,13 @@ const mapStateToProps = (state) => {
   });
   // filter out participants that are no longer in the global allParticipants list
   participants = participants.filter(id => state.participants[id] !== undefined);
-  return { name, description, date, cars, participants, allCars, allParticipants, carsSeats };
+  return { 
+    cars, 
+    participants, 
+    allCars, 
+    allParticipants, 
+    carsSeats 
+  };
 };
 
 export default connect(mapStateToProps, 
@@ -163,5 +222,6 @@ export default connect(mapStateToProps,
     carsFetch,
     eventCarsCheckAction,
     participantsFetch,
-    eventParticipantsCheckAction
+    eventParticipantsCheckAction,
+    eventGeocode
   })(EventForm);

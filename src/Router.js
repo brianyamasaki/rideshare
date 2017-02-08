@@ -13,6 +13,7 @@ import CarList from './components/CarList';
 import CarCreate from './components/CarCreate';
 import CarEdit from './components/CarEdit';
 import CreateAccount from './components/CreateAccount';
+import TestPage from './components/TestPage';
 import { logout } from './actions';
 
 const RouterComponent = (props) => {
@@ -60,19 +61,19 @@ const RouterComponent = (props) => {
         <Scene 
           key='participants' 
           component={ParticipantList} 
-          title='Participants' 
+          title='Riders' 
           rightTitle='Add'
           onRight={() => Actions.participantCreate()}
         />
         <Scene
           key='participantCreate'
           component={ParticipantCreate}
-          title='Add Participant'
+          title='Add Rider'
         />
         <Scene 
           key='participantEdit'
           component={ParticipantEdit}
-          title='Edit Participant'
+          title='Edit Rider'
         />
         <Scene
           key='cars'

@@ -50,6 +50,9 @@ const mapStateToProps = (state) => {
   const events = _.map(state.events, (val, id) => {
     return { ...val, id };
   });
+  events.sort((a, b) => {
+    return a.date < b.date ? -1 : 1;
+  });
 
   return { events };
 };

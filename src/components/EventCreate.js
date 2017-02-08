@@ -6,8 +6,28 @@ import EventForm from './EventForm';
 
 class EventDetails extends Component {
   onButtonPress() {
-    const { name, description, date, cars, participants } = this.props;
-    this.props.eventCreate({ name, description, date, cars, participants });
+    const { 
+      name, 
+      description, 
+      date, 
+      address1, 
+      address2, 
+      city, 
+      state, 
+      cars, 
+      participants 
+    } = this.props;
+
+    this.props.eventCreate({ 
+      name, 
+      description, 
+      date, 
+      address1, 
+      address2, 
+      city, 
+      state, 
+      cars, 
+      participants });
   }
 
   render() {
@@ -25,9 +45,28 @@ class EventDetails extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, description, date, cars = [], participants = [] } = state.event;
+  const { 
+    name, 
+    description, 
+    date, 
+    address1, 
+    address2, 
+    city, 
+    cars = [], 
+    participants = [] 
+  } = state.event;
 
-  return { name, description, date, cars, participants };
+  return { 
+    name, 
+    description, 
+    date, 
+    address1, 
+    address2, 
+    city, 
+    state: state.event.state, 
+    cars, 
+    participants 
+  };
 };
 
 export default connect(mapStateToProps, { eventCreate })(EventDetails);

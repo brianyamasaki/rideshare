@@ -11,6 +11,10 @@ const INITIAL_STATE = {
   name: '',
   description: '',
   date: '',
+  address1: '',
+  address2: '',
+  city: '',
+  area: '',
   cars: [],
   participants: []
 };

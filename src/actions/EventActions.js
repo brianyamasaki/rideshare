@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
+import axios from 'react-native-axios';
 import { 
   EVENT_LIST,
   EVENT_DETAILS,
@@ -42,11 +43,11 @@ export const eventFormCancel = () => {
   };
 };
 
-export const eventCreate = ({ name, description, date, cars = [], participants = [] }) => {
+export const eventCreate = ({ name, description, date, address1, address2, city, state, cars, participants }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events`)
-      .push({ name, description, date, cars, participants })
+      .push({ name, description, date, address1, address2, city, state, cars, participants })
       .then(() => {
         dispatch({ type: EVENT_CREATE });
         Actions.events({ type: 'back' });
@@ -68,15 +69,39 @@ export const eventsFetch = () => {
   };
 };
 
-export const eventSave = ({ name, description, date, cars = [], participants = [], id }) => {
+export const eventSave = ({ 
+  name, 
+  description, 
+  date, 
+  address1, 
+  address2, 
+  city, 
+  state, 
+  cars, 
+  participants, 
+  id }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events/${id}`)
-      .set({ name, description, date, cars, participants })
+      .set({ name, description, date, address1, address2, city, state, cars, participants })
       .then(() => {
         Actions.events({ type: ActionConst.BACK });
         dispatch({ type: EVENT_SAVE_SUCCESS });
     });
+  };
+};
+
+export const eventGeocode = (address1, address2, city, state) => {
+  let addressStr = `${address1}, ${city}, ${state}`;
+  addressStr = addressStr.replace(/ /g, '+');
+  return () => {
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressStr}&key=AIzaSyCBpY0tF_VnWwntensXhv7BE2TCNN1kuuY`)
+      .then(result => {
+        console.log(result.data.results);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 };
 

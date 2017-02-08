@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
 import { CardSection } from './common';
 
 class EventListItem extends Component {
   onRowPress() {
     Actions.eventEdit({ event: this.props.event });
+  }
+
+  dateString(date) {
+    return moment(date, 'YYYY-MM-DD, HH:mm A').fromNow();
   }
 
   render() {
@@ -15,7 +20,7 @@ class EventListItem extends Component {
       <TouchableOpacity onPress={this.onRowPress.bind(this)} style={itemStyle}>
         <CardSection style={cardStyle}>
           <Text style={nameStyle}>{name}</Text>
-          <Text style={dateStyle}> {date}</Text>
+          <Text style={dateStyle}> {this.dateString(date)}</Text>
         </CardSection>
       </TouchableOpacity>
     );

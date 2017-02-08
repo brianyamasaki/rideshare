@@ -16,10 +16,9 @@ const AnchorText = (props) => {
 
 const styles = {
   containerStyleDft: {
-    flexDirection: 'row',
     justifyContent: 'center',
-    margin: 10,
-    flex: 1
+    alignItems: 'center',
+    margin: 10
   },
   textStyleDft: {
     color: 'rgb(22, 80, 140)',

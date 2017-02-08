@@ -14,11 +14,27 @@ class EventEdit extends Component {
   }
 
   onSaveChanges() {
-    const { id, name, description, date, cars = [], participants = [] } = this.props;
+    const { 
+      id, 
+      name, 
+      description, 
+      date, 
+      address1, 
+      address2, 
+      city, 
+      state, 
+      cars, 
+      participants 
+    } = this.props;
+
     this.props.eventSave({ 
       name,
       description,
       date,
+      address1, 
+      address2, 
+      city, 
+      state, 
       cars,
       participants,
       id
@@ -47,7 +63,7 @@ class EventEdit extends Component {
     return (
       <ScrollView>
         <Card>
-          <EventForm />
+          <EventForm {...this.props} />
 
           <CardSection>
             <Button onPress={this.onSaveChanges.bind(this)}>
@@ -67,9 +83,19 @@ class EventEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { id, name, description, date, cars = [], participants = [] } = state.event;
+  const { id, name, description, date, address1, address2, city, cars, participants } = state.event;
 
-  return { id, name, description, date, cars, participants };
+  return { 
+    id, 
+    name, 
+    description, 
+    date, 
+    address1, 
+    address2, 
+    city, 
+    state: state.event.state, 
+    cars, 
+    participants };
 };
 
 export default connect(mapStateToProps, { eventUpdate, eventSave, eventDelete })(EventEdit);

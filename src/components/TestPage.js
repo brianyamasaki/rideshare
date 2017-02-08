@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { View, Text } from 'react-native';
 import Drawer from 'react-native-drawer';
-import { Actions } from 'react-native-router-flux';
 import LeftMenu from './LeftMenu';
-import EventList from './EventList';
-import { participantList, eventList, carList } from '../actions';
+import { AnchorText } from './common';
 
-class Dashboard extends Component {
-  componentWillMount() {
-    Actions.refresh({
-      leftTitle: 'menu',
-      onLeft: this.openDrawer.bind(this)
-    });
-  }
-
+class TestPage extends Component {
   closeDrawer() {
     this.drawer.close();
   }
@@ -23,7 +14,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { drawerStyles } = styles;
+    const { containerStyle, textStyle, drawerStyles } = styles;
     return (
       <Drawer
         type='overlay'
@@ -37,7 +28,12 @@ class Dashboard extends Component {
         styles={drawerStyles}
         openDrawerOffset={0.20}
       >
-        <EventList />
+        <View style={containerStyle}>
+          <Text style={textStyle}>Test Page Content Goes here</Text>
+          <AnchorText onPress={this.openDrawer.bind(this)}>
+            Open Drawer
+          </AnchorText>
+        </View>
       </Drawer>
     );
   }
@@ -64,9 +60,4 @@ const styles = {
   }
 };
 
-export default connect(null, 
-{ 
-  participantList,
-  eventList,
-  carList
-})(Dashboard);
+export default TestPage;
