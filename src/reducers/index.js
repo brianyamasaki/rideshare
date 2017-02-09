@@ -8,6 +8,8 @@ import CarsReducer from './CarsReducer';
 import CarFormReducer from './CarFormReducer';
 import AppReducer from './AppReducer';
 import CreateAccountReducer from './CreateAccountReducer';
+import LocationFormReducer from './LocationFormReducer';
+import LocationsReducer from './LocationsReducer';
 
 export default combineReducers({
   app: AppReducer,
@@ -18,5 +20,7 @@ export default combineReducers({
   events: EventsReducer,
   event: EventFormReducer,
   cars: CarsReducer,
-  car: CarFormReducer
+  car: CarFormReducer,
+  location: LocationFormReducer,
+  locations: LocationsReducer
 });

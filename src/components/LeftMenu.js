@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { AnchorText } from './common';
 
@@ -18,6 +18,12 @@ const LeftMenu = () => {
         textStyle={textStyle}
       >
         Edit Cars
+      </AnchorText>
+      <AnchorText
+        onPress={Actions.locations}
+        textStyle={textStyle}
+      >
+        Edit Locations
       </AnchorText>
     </View>
   );

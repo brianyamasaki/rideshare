@@ -3,11 +3,14 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import { 
   LOCATION_LIST,
   LOCATION_DETAILS,
+  LOCATION_UPDATE,
+  LOCATION_FORM_CANCEL,
   LOCATION_CREATE,
   LOCATIONS_FETCH_SUCCESS,
   LOCATION_SAVE_SUCCESS
  } from './types.js';
 
+// navigate to locations page
 export const locationList = (eventId) => {
   Actions.locations();
   return {
@@ -16,6 +19,7 @@ export const locationList = (eventId) => {
   };
 };
 
+// navigate to location details page 
 export const locationDetails = (eventId) => {
   Actions.locationDetails();
   return { 
@@ -24,14 +28,27 @@ export const locationDetails = (eventId) => {
   };
 };
 
-export const locationCreate = ({ name, description, address1, address2, city, state }) => {
+export const locationFormCancel = () => {
+  return {
+    type: LOCATION_FORM_CANCEL
+  };
+};
+
+export const locationUpdate = ({ prop, value }) => {
+  return {
+    type: LOCATION_UPDATE,
+    payload: { prop, value }
+  };
+};
+
+export const locationCreate = ({ name, description, address1, city, state }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/locations`)
-      .push({ name, description, address1, address2, city, state })
+      .push({ name, description, address1, city, state })
       .then(() => {
         dispatch({ type: LOCATION_CREATE });
-        Actions.locationList({ type: ActionConst.BACK });
+        Actions.locations({ type: ActionConst.BACK });
     });
   };
 };
@@ -49,13 +66,13 @@ export const locationsFetch = () => {
   };
 };
 
-export const locationSave = ({ name, description, address1, address2, city, state, uid }) => {
+export const locationSave = ({ name, description, address1, city, state, uid }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/locations/${uid}`)
-      .set({ name, description, address1, address2, city, state })
+      .set({ name, description, address1, city, state })
       .then(() => {
-        Actions.locationList({ type: ActionConst.BACK });
+        Actions.locations({ type: ActionConst.BACK });
         dispatch({ type: LOCATION_SAVE_SUCCESS });
     });
   };
@@ -67,7 +84,7 @@ export const locationDelete = ({ uid }) => {
     firebase.database().ref(`/users/${currentUser.uid}/locations/${uid}`)
       .remove()
       .then(() => {
-        Actions.locationList({ type: ActionConst.BACK });
+        Actions.locations({ type: ActionConst.BACK });
     });
   };
 };

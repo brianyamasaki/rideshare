@@ -10,10 +10,6 @@ class EventDetails extends Component {
       name, 
       description, 
       date, 
-      address1, 
-      address2, 
-      city, 
-      state, 
       cars, 
       participants 
     } = this.props;
@@ -22,10 +18,6 @@ class EventDetails extends Component {
       name, 
       description, 
       date, 
-      address1, 
-      address2, 
-      city, 
-      state, 
       cars, 
       participants });
   }
@@ -60,10 +52,6 @@ const mapStateToProps = (state) => {
     name, 
     description, 
     date, 
-    address1, 
-    address2, 
-    city, 
-    state: state.event.state, 
     cars, 
     participants 
   };

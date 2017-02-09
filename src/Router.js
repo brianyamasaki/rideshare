@@ -13,7 +13,9 @@ import CarList from './components/CarList';
 import CarCreate from './components/CarCreate';
 import CarEdit from './components/CarEdit';
 import CreateAccount from './components/CreateAccount';
-import TestPage from './components/TestPage';
+import LocationList from './components/LocationList';
+import LocationCreate from './components/LocationCreate';
+import LocationEdit from './components/LocationEdit';
 import { logout } from './actions';
 
 const RouterComponent = (props) => {
@@ -91,6 +93,23 @@ const RouterComponent = (props) => {
           key='carEdit'
           component={CarEdit}
           title='Edit Car'
+        />
+        <Scene
+          key='locations'
+          component={LocationList}
+          title='Locations'
+          rightTitle='Add'
+          onRight={() => Actions.locationCreate()}
+        />
+        <Scene
+          key='locationCreate'
+          component={LocationCreate}
+          title='Add Location'
+        />
+        <Scene
+          key='locationEdit'
+          component={LocationEdit}
+          title='Edit Location'
         />
       </Scene>
     </Router>

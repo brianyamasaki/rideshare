@@ -43,11 +43,11 @@ export const eventFormCancel = () => {
   };
 };
 
-export const eventCreate = ({ name, description, date, address1, address2, city, state, cars, participants }) => {
+export const eventCreate = ({ name, description, date, cars, participants }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events`)
-      .push({ name, description, date, address1, address2, city, state, cars, participants })
+      .push({ name, description, date, cars, participants })
       .then(() => {
         dispatch({ type: EVENT_CREATE });
         Actions.events({ type: 'back' });
@@ -73,17 +73,13 @@ export const eventSave = ({
   name, 
   description, 
   date, 
-  address1, 
-  address2, 
-  city, 
-  state, 
   cars, 
   participants, 
   id }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events/${id}`)
-      .set({ name, description, date, address1, address2, city, state, cars, participants })
+      .set({ name, description, date, cars, participants })
       .then(() => {
         Actions.events({ type: ActionConst.BACK });
         dispatch({ type: EVENT_SAVE_SUCCESS });

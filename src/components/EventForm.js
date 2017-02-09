@@ -67,46 +67,6 @@ class EventForm extends Component {
         </CardSection>
 
         <CardSection>
-          <InputNoLabel
-            placeholder='Address1'
-            value={this.props.address1}
-            onChangeText={text => this.props.eventUpdate(
-              { prop: 'address1', value: text }
-            )}
-          />
-        </CardSection>
-
-        <CardSection>
-          <InputNoLabel
-            placeholder='Address2'
-            value={this.props.address2}
-            onChangeText={text => this.props.eventUpdate(
-              { prop: 'address2', value: text }
-            )}
-          />
-        </CardSection>
-
-        <CardSection>
-          <InputNoLabel
-            placeholder='City'
-            value={this.props.city}
-            onChangeText={text => this.props.eventUpdate(
-              { prop: 'city', value: text }
-            )}
-          />
-        </CardSection>
-
-        <CardSection>
-          <InputNoLabel
-            placeholder='State'
-            value={this.props.state}
-            onChangeText={text => this.props.eventUpdate(
-              { prop: 'state', value: text }
-            )}
-          />
-        </CardSection>
-
-        <CardSection>
           <DatePicker
             format="YYYY-MM-DD, h:mm a"
             date={this.props.date}
