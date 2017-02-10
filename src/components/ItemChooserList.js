@@ -22,13 +22,25 @@ class ItemChooserList extends Component {
   }
 
   renderRow(item) {
-    return (
-      <ItemChooser 
-        checked={this.props.checked.indexOf(item.id) !== -1} 
-        item={item} 
-        checkAction={this.props.checkAction} 
-      />
-    );
+    if (this.props.checkAction) {
+      return (
+        <ItemChooser 
+          checked={this.props.checked.indexOf(item.id) !== -1} 
+          item={item} 
+          checkAction={this.props.checkAction} 
+        />
+      );
+    } else if (this.props.selectAction) {
+      return (
+        <ItemChooser 
+          selected={this.props.selected === item.id} 
+          item={item} 
+          selectAction={this.props.selectAction} 
+        />
+      );
+    } 
+    console.error('ItemChooserList must have checkAction or selectAction passed in');
+    return '';
   }
 
   render() {

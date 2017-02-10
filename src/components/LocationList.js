@@ -52,7 +52,7 @@ class LocationList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const locations = _.map(state.locations, (val, id) => {
+  const locations = _.map(state.locations.locations, (val, id) => {
     return { ...val, id };
   });
   return { locations };

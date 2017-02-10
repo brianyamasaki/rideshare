@@ -4,7 +4,8 @@ import {
   EVENT_SAVE_SUCCESS,
   EVENT_FORM_CANCEL,
   EVENT_CARS_CHANGE,
-  EVENT_PARTICIPANTS_CHANGE
+  EVENT_PARTICIPANTS_CHANGE,
+  EVENT_LOCATION_SELECT
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -16,7 +17,8 @@ const INITIAL_STATE = {
   city: '',
   area: '',
   cars: [],
-  participants: []
+  participants: [],
+  location: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -61,6 +63,11 @@ export default (state = INITIAL_STATE, action) => {
       return { 
         ...state,
         participants
+      };
+    case EVENT_LOCATION_SELECT:
+      return {
+        ...state,
+        location: action.payload
       };
     default:
       return state;

@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import { Actions, ActionConst } from 'react-native-router-flux';
-import axios from 'react-native-axios';
 import { 
   EVENT_LIST,
   EVENT_DETAILS,
@@ -10,7 +9,8 @@ import {
   EVENT_SAVE_SUCCESS,
   EVENT_FORM_CANCEL,
   EVENT_CARS_CHANGE,
-  EVENT_PARTICIPANTS_CHANGE
+  EVENT_PARTICIPANTS_CHANGE,
+  EVENT_LOCATION_SELECT
  } from './types.js';
 
 // Go to Event list page
@@ -43,11 +43,11 @@ export const eventFormCancel = () => {
   };
 };
 
-export const eventCreate = ({ name, description, date, cars, participants }) => {
+export const eventCreate = ({ name, description, date, cars, participants, location = '' }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events`)
-      .push({ name, description, date, cars, participants })
+      .push({ name, description, date, cars, participants, location })
       .then(() => {
         dispatch({ type: EVENT_CREATE });
         Actions.events({ type: 'back' });
@@ -75,29 +75,16 @@ export const eventSave = ({
   date, 
   cars, 
   participants, 
+  location = '',
   id }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/events/${id}`)
-      .set({ name, description, date, cars, participants })
+      .set({ name, description, date, cars, participants, location })
       .then(() => {
         Actions.events({ type: ActionConst.BACK });
         dispatch({ type: EVENT_SAVE_SUCCESS });
     });
-  };
-};
-
-export const eventGeocode = (address1, address2, city, state) => {
-  let addressStr = `${address1}, ${city}, ${state}`;
-  addressStr = addressStr.replace(/ /g, '+');
-  return () => {
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressStr}&key=AIzaSyCBpY0tF_VnWwntensXhv7BE2TCNN1kuuY`)
-      .then(result => {
-        console.log(result.data.results);
-      })
-      .catch(error => {
-        console.log(error);
-      });
   };
 };
 
@@ -129,5 +116,12 @@ export const eventParticipantsCheckAction = (id, checked) => {
       id,
       checked
     }
+  };
+};
+
+export const eventLocationSelectAction = (id) => {
+  return {
+    type: EVENT_LOCATION_SELECT,
+    payload: id
   };
 };

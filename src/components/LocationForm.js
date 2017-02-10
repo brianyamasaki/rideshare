@@ -1,17 +1,77 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
-import { CardSection, InputNoLabel } from './common';
-import { locationUpdate, locationFormCancel } from '../actions';
+import MapView from 'react-native-maps';
+import { CardSection, InputNoLabel, Spinner, Button } from './common';
+import { locationUpdate, locationFormCancel, locationGetGeocode } from '../actions';
 
 class LocationForm extends Component { 
+  state = {
+    showMap: false,
+    layout: {}
+  };
+
   componentWillUnmount() {
     this.props.locationFormCancel();
   }
 
+  onLayout() {
+    const layout = Dimensions.get('window');
+    this.setState({ layout });
+  }
+
+  onShowMap() {
+    const { address1, city, state, latitude, longitude } = this.props;
+    if (!latitude || !longitude) {
+      this.props.locationGetGeocode(address1, city, state);
+    }
+    this.setState({ showMap: true });
+  }
+
+  renderMap() {
+    const { address1, city, state, latitude, longitude, loading, viewport } = this.props;
+
+    if (loading) {
+      return (
+        <Spinner size='large' />
+      );
+    } else if (latitude && longitude) {
+      if (!this.state.showMap) {
+        return (
+          <Button onPress={this.onShowMap.bind(this)}>
+            Show a Map
+          </Button>
+        );
+      }
+      const latDelta = Math.abs(viewport.northeast.lat - viewport.southwest.lat);
+      const longDelta = Math.abs(viewport.northeast.lng - viewport.southwest.lng);
+
+      return (
+        <MapView
+          style={{ height: this.state.layout.width, width: this.state.layout.width }}
+          initialRegion={{
+            latitude,
+            longitude,
+            latitudeDelta: latDelta,
+            longitudeDelta: longDelta
+          }}
+        />
+      );
+    } else if (address1 && city && state) {
+      return (
+        <Button onPress={this.onShowMap.bind(this)}>
+          Show a Map
+        </Button>
+      );
+    }
+    return (
+        <Text>Please Enter an address</Text>
+    );
+  }
+
   render() {
     return (
-      <View>
+      <View onLayout={this.onLayout.bind(this)}>
         <CardSection>
           <InputNoLabel
             placeholder='Location Name'
@@ -61,9 +121,14 @@ class LocationForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name, description, address1, city } = state.location;
+  const { latitude, longitude, viewport, errorMsg, loading } = state.location;
 
-  return { name, description, address1, city, state: state.location.state };
+  return { latitude, longitude, viewport, errorMsg, loading };
 };
 
-export default connect(mapStateToProps, { locationUpdate, locationFormCancel })(LocationForm);
+export default connect(mapStateToProps, 
+{ 
+  locationUpdate, 
+  locationFormCancel, 
+  locationGetGeocode 
+})(LocationForm);

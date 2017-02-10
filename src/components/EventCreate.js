@@ -11,7 +11,8 @@ class EventDetails extends Component {
       description, 
       date, 
       cars, 
-      participants 
+      participants,
+      location
     } = this.props;
 
     this.props.eventCreate({ 
@@ -19,7 +20,9 @@ class EventDetails extends Component {
       description, 
       date, 
       cars, 
-      participants });
+      participants,
+      location
+     });
   }
 
   render() {
@@ -41,11 +44,9 @@ const mapStateToProps = (state) => {
     name, 
     description, 
     date, 
-    address1, 
-    address2, 
-    city, 
-    cars = [], 
-    participants = [] 
+    cars, 
+    participants,
+    location
   } = state.event;
 
   return { 
@@ -53,7 +54,8 @@ const mapStateToProps = (state) => {
     description, 
     date, 
     cars, 
-    participants 
+    participants,
+    location
   };
 };
 

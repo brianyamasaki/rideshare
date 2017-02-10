@@ -11,7 +11,8 @@ import {
   eventCarsCheckAction,
   participantsFetch,
   eventParticipantsCheckAction,
-  eventGeocode
+  locationsFetch,
+  eventLocationSelectAction
 } from '../actions';
 import ItemChooserList from './ItemChooserList';
 
@@ -19,15 +20,9 @@ class EventForm extends Component {
   componentWillMount() {
     this.props.carsFetch();
     this.props.participantsFetch();
+    this.props.locationsFetch();
   }
 
-  componentWillReceiveProps(nextProps) {
-    // const { address1, address2, city, state } = nextProps;
-    // if (nextProps.address1 && nextProps.city && nextProps.state) {
-    //   this.props.eventGeocode(address1, address2, city, state);
-    // }
-  }
-  
   componentWillUnmount() {
     this.props.eventFormCancel();
   }
@@ -81,6 +76,17 @@ class EventForm extends Component {
               )}
             style={dateTimeStyle}
             customStyles={dateTimeCustomStyles}
+          />
+        </CardSection>
+
+        <CardSection style={cardStyle}>
+          <View style={cardTitleContainer}>
+            <Text style={cardTitles}>Location</Text>
+          </View>
+          <ItemChooserList 
+            items={this.props.allLocations}
+            selectAction={this.props.eventLocationSelectAction}
+            selected={this.props.location}
           />
         </CardSection>
 
@@ -164,6 +170,10 @@ const mapStateToProps = (state) => {
   const allParticipants = _.map(state.participants, (val, id) => {
     return { ...val, id };
   });
+  // 
+  const allLocations = _.map(state.locations.locations, (val, id) => {
+    return { ...val, id };
+  });
   // filter out participants that are no longer in the global allParticipants list
   participants = participants.filter(id => state.participants[id] !== undefined);
   return { 
@@ -171,7 +181,8 @@ const mapStateToProps = (state) => {
     participants, 
     allCars, 
     allParticipants, 
-    carsSeats 
+    carsSeats,
+    allLocations
   };
 };
 
@@ -183,5 +194,6 @@ export default connect(mapStateToProps,
     eventCarsCheckAction,
     participantsFetch,
     eventParticipantsCheckAction,
-    eventGeocode
+    locationsFetch,
+    eventLocationSelectAction
   })(EventForm);

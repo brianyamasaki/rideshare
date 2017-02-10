@@ -3,24 +3,32 @@ import React, { Component } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import LocationForm from './LocationForm.js';
-import { locationUpdate, locationSave, locationDelete } from '../actions';
+import { locationUpdate, locationUpdateAll, locationSave, locationDelete } from '../actions';
 import { Card, CardSection, Button } from './common';
 
 class LocationEdit extends Component {
   componentWillMount() {
-    _.each(this.props.location, (value, prop) => {
-      this.props.locationUpdate({ prop, value });
-    });
+    const { id, name, description, address1, city, state } = this.props.location;
+    
+    this.props.locationUpdateAll(id, name, description, address1, city, state);
   }
 
   onSaveChanges() {
-    const { firstname, lastname, phone, email } = this.props;
+    const {     
+      name,
+      description,
+      address1,
+      city,
+      state
+    } = this.props;
+
     this.props.locationSave({ 
-      firstname, 
-      lastname, 
-      phone, 
-      email, 
-      id: this.props.location.id 
+      name,
+      description,
+      address1,
+      city,
+      state,
+      id: this.props.id 
     });
   }
 
@@ -31,7 +39,7 @@ class LocationEdit extends Component {
       [
         {
           text: 'Delete',
-          onPress: () => this.props.locationDelete({ id: this.props.location.id })
+          onPress: () => this.props.locationDelete({ id: this.props.id })
         },
         {
           text: 'Cancel',
@@ -65,6 +73,23 @@ class LocationEdit extends Component {
   }
 }
 
-export default connect(null, 
-{ locationUpdate, locationSave, locationDelete }
+
+const mapStateToProps = state => {
+  const { id, name, description, address1, city } = state.location;
+
+  return {
+    id,
+    name,
+    description,
+    address1,
+    city,
+    state: state.location.state
+  };
+};
+
+export default connect(mapStateToProps, 
+{ locationUpdate, 
+  locationUpdateAll,
+  locationSave, 
+  locationDelete }
 )(LocationEdit);

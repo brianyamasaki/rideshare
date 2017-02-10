@@ -20,7 +20,8 @@ class EventEdit extends Component {
       description, 
       date, 
       cars, 
-      participants 
+      participants,
+      location
     } = this.props;
 
     this.props.eventSave({ 
@@ -29,6 +30,7 @@ class EventEdit extends Component {
       date,
       cars,
       participants,
+      location,
       id
     });
   }
@@ -75,7 +77,7 @@ class EventEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { id, name, description, date, cars, participants } = state.event;
+  const { id, name, description, date, cars, participants, location } = state.event;
 
   return { 
     id, 
@@ -83,7 +85,9 @@ const mapStateToProps = (state) => {
     description, 
     date, 
     cars, 
-    participants };
+    participants,
+    location
+   };
 };
 
 export default connect(mapStateToProps, { eventUpdate, eventSave, eventDelete })(EventEdit);
