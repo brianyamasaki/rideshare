@@ -9,7 +9,7 @@ import { participantList, eventList, carList } from '../actions';
 class Dashboard extends Component {
   componentWillMount() {
     Actions.refresh({
-      leftTitle: 'menu',
+      leftButtonImage: require('../assets/MenuIcon.png'),
       onLeft: this.openDrawer.bind(this)
     });
   }
@@ -35,7 +35,7 @@ class Dashboard extends Component {
         })}
         tapToClose
         styles={drawerStyles}
-        openDrawerOffset={0.20}
+        openDrawerOffset={0.35}
       >
         <EventList />
       </Drawer>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { TouchableWithoutFeedback, Image } from 'react-native';
 import { connect } from 'react-redux';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Actions } from 'react-native-router-flux';
 import { 
   Card, 
@@ -50,7 +49,7 @@ class LoginForm extends Component {
     return (
       <Card>
         <TouchableWithoutFeedback onPress={this.autoLogin.bind(this)}>
-          <IconFontAwesome name='truck' size={60} style={styles.iconStyle} />
+          <Image source={require('../assets/rideshare.png')} style={styles.iconStyle} />
         </TouchableWithoutFeedback>
         <CardSection>
           <InputNoLabel
@@ -90,8 +89,9 @@ class LoginForm extends Component {
 const styles = {
   iconStyle: {
     alignSelf: 'center',
-    paddingTop: 5,
-    paddingBottom: 5
+    height: 70,
+    width: 80,
+    marginVertical: 10,
   }
 };
 
