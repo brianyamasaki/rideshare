@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, } from 'react-native';
-import { Checkbox, RadioSelector, EditIcon } from './common';
+import { Checkbox, RadioSelector, TouchableIcon } from './common';
 
 class ItemChooser extends Component {
 
@@ -11,7 +11,11 @@ class ItemChooser extends Component {
   renderEditControl() {
     if (this.props.editAction && this.props.editKey) {
       return (
-          <EditIcon style={styles.editIconStyle} onPress={this.onEdit.bind(this)} />
+          <TouchableIcon
+            name='pencil'
+            style={styles.editIconStyle} 
+            onPress={this.onEdit.bind(this)} 
+          />
       );
     }
   }

@@ -2,14 +2,14 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const EditIcon = (props) => {
+const TouchableIcon = (props) => {
   return (
     <TouchableOpacity 
       onPress={props.onPress} 
       style={[styles.containerStyleDft, props.containerStyle]}
     >
       <IconFontAwesome 
-        name='pencil' 
+        name={props.name} 
         style={[styles.iconStyleDft, props.iconStyle]}
       />
     </TouchableOpacity>
@@ -26,4 +26,4 @@ const styles = {
   }
 };
 
-export { EditIcon };
+export { TouchableIcon };

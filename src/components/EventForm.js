@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
-import { CardSection, InputNoLabel } from './common';
+import { CardSection, InputNoLabel, TouchableIcon } from './common';
 import { 
   eventUpdate, 
   eventFormCancel, 
@@ -82,7 +82,11 @@ class EventForm extends Component {
 
         <CardSection style={cardStyle}>
           <View style={cardTitleContainer}>
-            <Text style={cardTitles}>Location</Text>
+            <Text style={cardTitles}>Locations</Text>
+            <TouchableIcon
+              name='plus'
+              onPress={() => Actions.locationCreate()}
+            />
           </View>
           <ItemChooserList 
             items={this.props.allLocations}
@@ -102,6 +106,10 @@ class EventForm extends Component {
             <View style={itemSummaryStyle}>
               <Text>{this.props.carsSeats} Seats</Text>
             </View>
+            <TouchableIcon
+              name='plus'
+              onPress={() => Actions.carCreate()}
+            />
           </View>
           <ItemChooserList 
             items={this.props.allCars} 
@@ -116,6 +124,10 @@ class EventForm extends Component {
           <View style={cardTitleContainer}>
             <Text style={cardTitles}>Participants</Text>
             <Text style={itemSummaryStyle}>{this.props.participants.length} Participants</Text>
+            <TouchableIcon
+              name='plus'
+              onPress={() => Actions.participantCreate()}
+            />
           </View>
           <ItemChooserList 
             items={this.props.allParticipants} 

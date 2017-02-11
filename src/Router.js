@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scene, Router, Actions } from 'react-native-router-flux';
+import { Scene, Router, Actions, ActionConst } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
@@ -26,6 +26,7 @@ const RouterComponent = (props) => {
           key='login' 
           component={LoginForm} 
           title='Please Login' 
+          type={ActionConst.REPLACE}
           initial
         />
         <Scene
