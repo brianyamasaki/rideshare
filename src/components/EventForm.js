@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import DatePicker from 'react-native-datepicker';
+import { Actions } from 'react-native-router-flux';
 import { CardSection, InputNoLabel } from './common';
 import { 
   eventUpdate, 
@@ -87,6 +88,8 @@ class EventForm extends Component {
             items={this.props.allLocations}
             selectAction={this.props.eventLocationSelectAction}
             selected={this.props.location}
+            editAction={Actions.locationEdit}
+            editKey='location'
           />
         </CardSection>
 
@@ -104,6 +107,8 @@ class EventForm extends Component {
             items={this.props.allCars} 
             checkAction={this.props.eventCarsCheckAction}
             checked={this.props.cars}
+            editAction={Actions.carEdit}
+            editKey='car'
           />
         </CardSection>
 
@@ -116,6 +121,8 @@ class EventForm extends Component {
             items={this.props.allParticipants} 
             checkAction={this.props.eventParticipantsCheckAction}
             checked={this.props.participants}
+            editAction={Actions.participantEdit}
+            editKey='participant'
           />
         </CardSection>
       </View>

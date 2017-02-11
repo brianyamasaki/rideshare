@@ -27,7 +27,9 @@ class ItemChooserList extends Component {
         <ItemChooser 
           checked={this.props.checked.indexOf(item.id) !== -1} 
           item={item} 
-          checkAction={this.props.checkAction} 
+          checkAction={this.props.checkAction}
+          editAction={this.props.editAction} 
+          editKey={this.props.editKey}
         />
       );
     } else if (this.props.selectAction) {
@@ -36,6 +38,8 @@ class ItemChooserList extends Component {
           selected={this.props.selected === item.id} 
           item={item} 
           selectAction={this.props.selectAction} 
+          editAction={this.props.editAction}
+          editKey={this.props.editKey}
         />
       );
     } 
@@ -69,8 +73,7 @@ class ItemChooserList extends Component {
 const styles = {
   listViewStyle: {
     borderWidth: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    padding: 5,
     minHeight: 80,
     maxHeight: 120
   },

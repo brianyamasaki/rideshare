@@ -11,3 +11,4 @@ export * from './AnchorText';
 export * from './ErrorMessage';
 export * from './FullScreen';
 export * from './RadioSelector';
+export * from './EditIcon';

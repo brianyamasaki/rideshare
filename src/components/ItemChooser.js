@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { View, Text, } from 'react-native';
-import { Checkbox, RadioSelector } from './common';
+import { Checkbox, RadioSelector, EditIcon } from './common';
 
 class ItemChooser extends Component {
+
+  onEdit() {
+    this.props.editAction({ [this.props.editKey]: this.props.item });
+  }
+
+  renderEditControl() {
+    if (this.props.editAction && this.props.editKey) {
+      return (
+          <EditIcon style={styles.editIconStyle} onPress={this.onEdit.bind(this)} />
+      );
+    }
+  }
   
   renderName() {
     const { textStyle } = styles;
@@ -28,6 +40,7 @@ class ItemChooser extends Component {
         <View style={textContainerStyle}>
           {this.renderName()}
         </View>
+        {this.renderEditControl()}
       </View>
     );
   }
@@ -38,10 +51,14 @@ const styles = {
     flexDirection: 'row'
   },
   textContainerStyle: {
-    paddingTop: 6
+    paddingTop: 6,
+    flex: 1
   },
   textStyle: {
-    fontSize: 16
+    fontSize: 16,
+  },
+  editIconStyle: {
+    width: 30,
   }
 };
 
